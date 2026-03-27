@@ -1,27 +1,134 @@
-# Product Managemnent
+## Product Managemnent
+A fullstack e-commerce application that allows users to browse products, manage carts, and securely checkout using JWT authentication.
 
-## 📌 Project Overview
+## Demo 
 
-A brief description of what this project does and the problem it solves.
+## 📸 Screenshots
 
-> Example:
-> A fullstack e-commerce application that allows users to browse products, manage carts, and securely checkout using JWT authentication.
+### Home Page
+
+(Add screenshot here)
+
+### Dashboard
+
+(Add screenshot here)
 
 ---
 
 ## 🔥 Key Features
 
-* 🔐 Authentication (JWT + Refresh Token)
-* 👤 Role-based Authorization (Admin/User)
-* 📦 CRUD Operations (Products, Users, Orders...)
-* 🛒 Shopping Cart & Checkout Flow
-* ⚡ API Error Handling & Validation
-* 📊 Pagination / Search / Filter
-* 🌐 Responsive UI
+🔐 Authentication & Authorization
+    Login / Sign in
+    JWT / session
+    Refresh token
+    Forgot password (email / OTP)
+    Phân quyền (RBAC):
+    Admin
+    User
 
+👤 User Management
+    CRUD user (admin)
+    Update profile (user)
+    Change avatar
+    Upload avatar
+
+⚙️ Settings System
+    Setting system (admin)
+    Config chung (logo, title, email, …)
+
+📦 Product Management
+    CRUD product
+    Upload image
+    price
+    State (active / hidden)
+    category
+    Search / filter / sort / pagination
+
+🗂 Category Management
+    CRUD category
+    Danh mục cha - con (tree)
+    Slug SEO
+
+🛡 Role & Permission Management
+    Tạo role (admin, staff…)
+    Gán quyền:
+    CRUD product
+    CRUD user
+    Middleware check permission
+
+👨‍💼 Admin Account Management
+    CRUD admin
+    Gán role
+    Lock / unlock account
+
+👥 User Account Management
+    Xem danh sách user
+    Khoá / mở user
+    Reset mật khẩu
+📝 Blog / Article Management
+    CRUD bài viết
+    Rich text editor
+    Ảnh đại diện
+    Tag / category bài viết
+    Publish / draft
+
+⚙️ Personal Profile (Admin)
+    Update info
+    Đổi mật khẩu
+
+⚙️ General Settings
+    Cấu hình website:
+    Logo
+    Banner
+    Email
+    Footer
+
+🏠 Homepage
+    Banner
+    Sản phẩm nổi bật
+    Danh mục
+📂 Product Listing
+    Theo danh mục
+    Filter:
+    Giá
+    Danh mục
+    Sort:
+    Giá
+    Mới nhất
+    Pagination
+
+🔍 Search System
+    Search theo tên
+    Suggest keyword
+    Highlight kết quả
+
+📄 Product Detail
+    Thông tin sản phẩm
+    Gallery ảnh
+    Giá
+    Add to cart
+🛒 Cart System
+    Thêm / xoá sản phẩm
+    Update số lượng
+    Lưu session / database
+💳 Checkout System
+    Nhập thông tin
+    Đặt hàng
+    (Optional) thanh toán online
+
+🔐 Auth (Client)
+    Đăng ký
+    Đăng nhập
+    Quên mật khẩu
+👤 User Profile
+    Xem / sửa thông tin
+    Xem lịch sử đơn hàng
+    📰 Blog (Client)
+    List bài viết
+    Chi tiết bài viết
 ---
 
-## 🧠 What I Learned / Highlights
+## 🧠 What I Learned?
 
 * Designed scalable project structure (MVC / Modular architecture)
 * Implemented authentication & token refresh strategy
@@ -46,19 +153,22 @@ Describe how your system is structured.
 
 ### Frontend
 
-* React / Vue / HTML / CSS / Tailwind
+*  HTML 
+*  CSS 
+*  JS
+*  Bootstrap
 
 ### Backend
 
-* Node.js / Express
+* Express
 
 ### Database
 
-* MongoDB / MySQL / PostgreSQL
+* MongoDB 
 
 ### Other Tools
 
-* Docker / Git / Postman
+* npm / pug / nodemon / mongoose /.env
 
 ---
 
@@ -115,11 +225,8 @@ product-management/
 
 Create a `.env` file:
 
-```env
 PORT=3000
-DB_URI=your_database_url
-JWT_SECRET=your_secret_key
-```
+
 
 ---
 
@@ -135,14 +242,6 @@ npm run dev
 
 ---
 
-## 🐳 Docker Deployment (Optional)
-
-```bash
-docker-compose up --build
-```
-
----
-
 ## 🔗 Integration with Backend API
 
 Describe how frontend communicates with backend:
@@ -153,17 +252,6 @@ Describe how frontend communicates with backend:
 
 ---
 
-## 📸 Screenshots
-
-### Home Page
-
-(Add screenshot here)
-
-### Dashboard
-
-(Add screenshot here)
-
----
 
 ## 🚀 Future Improvements
 

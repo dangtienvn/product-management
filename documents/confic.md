@@ -1,4 +1,0 @@
-# express
-# pug
-# nodemon
-# .env

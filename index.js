@@ -1,5 +1,11 @@
 const express = require('express');
+const mongoose = require('mongoose');
+require("dotenv").config();
+
 const route = require("./routes/client/index.route");
+
+mongoose.connect( process.env.MONGO_URL);
+
 const app = express();
 const port = process.env.PORT || 3000;
 
