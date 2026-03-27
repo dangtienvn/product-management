@@ -1,7 +1,5 @@
 # Product Managemnent
 
-
- 
 ## 📌 Project Overview
 
 A brief description of what this project does and the problem it solves.
@@ -67,7 +65,7 @@ Describe how your system is structured.
 ## 📁 Project Structure
 
 ```bash
-project-root/
+product-management/
 │── src/
 │   ├── controllers/
 │   ├── models/
@@ -178,6 +176,6 @@ Describe how frontend communicates with backend:
 
 ## 👤 Author
 
-* Name: Your Name
-* GitHub: your-link
-* Email: your-email
+* [Name]: Đặng Tiến
+* [GitHub]: https://github.com/dangtienvn
+* [Email]: td2812009@gmail.com
