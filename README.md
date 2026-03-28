@@ -1,21 +1,20 @@
 ## Product Managemnent
-A fullstack e-commerce application that allows users to browse products, manage carts, and securely checkout using JWT authentication.
+A fullstack e-commerce application built with Node.js, Express allowing users to browse products, manage shopping carts, and perform secure checkout with JWT-based authentication.
 
-## Demo 
-
-## 📸 Screenshots
+## Screenshots
 
 ### Home Page
 
 (Add screenshot here)
 
-### Dashboard
+### Admin
 
 (Add screenshot here)
 
+### Client
 ---
 
-## 🔥 Key Features
+## Key Features
 
 🔐 Authentication & Authorization
     Login / Sign in
@@ -65,6 +64,7 @@ A fullstack e-commerce application that allows users to browse products, manage 
     Xem danh sách user
     Khoá / mở user
     Reset mật khẩu
+
 📝 Blog / Article Management
     CRUD bài viết
     Rich text editor
@@ -87,6 +87,7 @@ A fullstack e-commerce application that allows users to browse products, manage 
     Banner
     Sản phẩm nổi bật
     Danh mục
+
 📂 Product Listing
     Theo danh mục
     Filter:
@@ -107,10 +108,12 @@ A fullstack e-commerce application that allows users to browse products, manage 
     Gallery ảnh
     Giá
     Add to cart
+
 🛒 Cart System
     Thêm / xoá sản phẩm
     Update số lượng
     Lưu session / database
+    
 💳 Checkout System
     Nhập thông tin
     Đặt hàng
@@ -120,6 +123,7 @@ A fullstack e-commerce application that allows users to browse products, manage 
     Đăng ký
     Đăng nhập
     Quên mật khẩu
+
 👤 User Profile
     Xem / sửa thông tin
     Xem lịch sử đơn hàng
