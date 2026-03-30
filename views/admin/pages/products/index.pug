@@ -13,38 +13,42 @@ block main
             th Trạng thái
             th Hành động
     tbody
+    each item, index in products
         tr
-            td 1
+            td=index + 1
             td
                 img(
-                    src="https://i.dummyjson.com/data/products/1/thumbnail.jpg"
-                    alt="Sản phẩm 1"
+                    src=item.thumbnail
+                    alt=item.title
                     width="100px"
                     height="auto"
                 )
 
-            td Sản phẩm 1
-            td 1000$
+            td=item.title
+            td=item.price
             td
-                span(class="badge bg-success") Còn hàng
+                if (item.status === "active")
+                    span(class="badge bg-success") Còn hàng
+                else
+                    span(class="badge bg-danger") Dừng kinh doanh
             td(class="d-flex gap-2")
                 button(type="button" class="btn btn-warning btn-sm") Sửa
                 button(type="button" class="btn btn-danger btn-sm") Xóa
 
-        tr
-            td 2
-            td
-                img(
-                    src="https://i.dummyjson.com/data/products/1/thumbnail.jpg"
-                    alt="Sản phẩm 2"
-                    width="100px"
-                    height="auto"
-                )
+        //- tr
+        //-     td 2
+        //-     td
+        //-         img(
+        //-             src="https://i.dummyjson.com/data/products/1/thumbnail.jpg"
+        //-             alt="Sản phẩm 2"
+        //-             width="100px"
+        //-             height="auto"
+        //-         )
 
-            td Sản phẩm 2
-            td 1000$
-            td
-                span(class="badge bg-danger") Dừng kinh doanh
-            td(class="d-flex gap-2")
-                button(type="button" class="btn btn-warning btn-sm") Sửa
-                button(type="button" class="btn btn-danger btn-sm") Xóa
+        //-     td Sản phẩm 2
+        //-     td 1000$
+        //-     td
+        //-         span(class="badge bg-danger") Dừng kinh doanh
+        //-     td(class="d-flex gap-2")
+        //-         button(type="button" class="btn btn-warning btn-sm") Sửa
+        //-         button(type="button" class="btn btn-danger btn-sm") Xóa
