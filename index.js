@@ -15,8 +15,13 @@ mongoose.connect( process.env.MONGO_URL);
 const app = express();
 const port = process.env.PORT || 3000;
 
+const systemConfig = require("./config/system");
+
 app.set("views", "./views");
 app.set("view engine", "pug");
+
+// Global variables
+app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
 app.use(express.static("public"));
 
