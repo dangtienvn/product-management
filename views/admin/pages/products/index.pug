@@ -1,54 +1,46 @@
 extends ../../layouts/default.pug
 
 block main
-  h1 Danh sách sản phẩm
+    h1 Danh sách sản phẩm
+    .card.mb-3
+        .card-header Bộ lọc và Tìm kiếm
+            .card-body
+                .d-flex.align-items-center
+                    .input-group.input-group-sm.w-50
+                        input.form-control(type="text" placeholder="Tìm kiếm theo tên..." search-input)
+                        button#search-button.btn.btn-sm.btn-outline-primary(type="button") Tìm
+                    .ms-3
+                        button(button-status="" class="btn btn-sm btn-outline-success active me-1") Tất cả
+                        button(button-status="active" class="btn btn-sm btn-outline-success me-1") Còn hàng
+                        button(button-status="inactive" class="btn btn-sm btn-outline-success") Dừng kinh doanh
+    table.table.table-hover.table-sm
+        thead
+            tr
+                th STT
+                th Hình ảnh
+                th Tiêu đề
+                th Giá
+                th Trạng thái
+                th Hành động
+        tbody
+        each item, index in products
+            tr
+                td=index + 1
+                td
+                    img(
+                        src=item.thumbnail
+                        alt=item.title
+                        width="100px"
+                        height="auto"
+                    )
 
-  table.table.table-hover.table-sm
-    thead
-        tr
-            th STT
-            th Hình ảnh
-            th Tiêu đề
-            th Giá
-            th Trạng thái
-            th Hành động
-    tbody
-    each item, index in products
-        tr
-            td=index + 1
-            td
-                img(
-                    src=item.thumbnail
-                    alt=item.title
-                    width="100px"
-                    height="auto"
-                )
-
-            td=item.title
-            td=item.price
-            td
-                if (item.status === "active")
-                    span(class="badge bg-success") Còn hàng
-                else
-                    span(class="badge bg-danger") Dừng kinh doanh
-            td(class="d-flex gap-2")
-                button(type="button" class="btn btn-warning btn-sm") Sửa
-                button(type="button" class="btn btn-danger btn-sm") Xóa
-
-        //- tr
-        //-     td 2
-        //-     td
-        //-         img(
-        //-             src="https://i.dummyjson.com/data/products/1/thumbnail.jpg"
-        //-             alt="Sản phẩm 2"
-        //-             width="100px"
-        //-             height="auto"
-        //-         )
-
-        //-     td Sản phẩm 2
-        //-     td 1000$
-        //-     td
-        //-         span(class="badge bg-danger") Dừng kinh doanh
-        //-     td(class="d-flex gap-2")
-        //-         button(type="button" class="btn btn-warning btn-sm") Sửa
-        //-         button(type="button" class="btn btn-danger btn-sm") Xóa
+                td=item.title
+                td=item.price
+                td
+                    if (item.status === "active")
+                        span(class="badge bg-success") Còn hàng
+                    else
+                        span(class="badge bg-danger") Dừng kinh doanh
+                td(class="d-flex gap-2") 
+                    button(type="button" class="btn btn-warning btn-sm") Sửa
+                    button(type="button" class="btn btn-danger btn-sm") Xóa
