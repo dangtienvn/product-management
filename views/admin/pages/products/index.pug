@@ -1,4 +1,5 @@
 extends ../../layouts/default.pug
+include ../../mixins/filter-status.pug
 
 block main
     h1 Danh sách sản phẩm
@@ -20,12 +21,7 @@ block main
                     role="group" 
                     aria-label="Filter buttons"
                 )
-                    each item in filterStatus
-                        button(
-                            type="button" 
-                            button-status=item.status 
-                            class=`btn btn-sm btn-outline-success ${item.class}`
-                        ) #{item.name}
+                    +filter-status(filterStatus)
 
                 // Dropdown for small screens
                 .dropdown.d-md-none

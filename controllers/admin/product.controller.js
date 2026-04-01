@@ -1,36 +1,12 @@
 const Product = require("../../models/product.model");
 
+const filterStatusHelper = require("../../helpers/filterStatus");
+
 // [GET] /admin/products
 module.exports.index = async (req, res) => {
-    let filterStatus = [
-        // index = 0: all, index = 1: active, index = 2: inactive
-        {
-            name: "Tất cả",
-            status: "",
-            class: "active"
-        },
-        {
-            name: "Còn hàng",
-            status: "active",
-            class: ""
-        },
-        {
-            name: "Dừng kinh doanh",
-            status: "inactive",
-            class: ""
-        }
-    ]; 
-
-    if (req.query.status) {
-        // If a status filter is applied, set the corresponding item as active
-        const index = filterStatus.findIndex(item => item.status === req.query.status);
-        filterStatus[index].class = "active";
-    } else {
-        // If no status filter is applied, set "Tất cả" as active
-        const index = filterStatus.findIndex(item => item.status === "");
-        filterStatus[index].class = "active";
-    }
-
+    const filterStatus = filterStatusHelper(req.query);
+  
+    // Build the query object for fetching products based on the filters
     let find = {
         deleted: false
     };
