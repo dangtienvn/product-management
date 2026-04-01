@@ -4,15 +4,47 @@ block main
     h1 Danh sách sản phẩm
     .card.mb-3
         .card-header Bộ lọc và Tìm kiếm
-            .card-body
-                .d-flex.align-items-center
-                    .input-group.input-group-sm.w-50
-                        input.form-control(type="text" placeholder="Tìm kiếm theo tên..." search-input)
-                        button#search-button.btn.btn-sm.btn-outline-primary(type="button") Tìm
-                    .ms-3
-                        button(button-status="" class="btn btn-sm btn-outline-success active me-1") Tất cả
-                        button(button-status="active" class="btn btn-sm btn-outline-success me-1") Còn hàng
-                        button(button-status="inactive" class="btn btn-sm btn-outline-success") Dừng kinh doanh
+        .card-body
+            .d-flex.flex-wrap.align-items-center.gap-2
+                .input-group.input-group-sm.flex-grow-1.me-2
+                    input.form-control(
+                        type="text" 
+                        placeholder="Tìm kiếm..." search-input
+                    )
+                    button#search-button.btn.btn-sm.btn-outline-primary(
+                        type="button"
+                    ) Tìm kiếm
+
+                // Buttons for medium+ screens (wrap automatically when too many)
+                .d-none.d-md-flex.flex-wrap.gap-2(
+                    role="group" 
+                    aria-label="Filter buttons"
+                )
+                    each item in filterStatus
+                        button(
+                            type="button" 
+                            button-status=item.status 
+                            class=`btn btn-sm btn-outline-success ${item.class}`
+                        ) #{item.name}
+
+                // Dropdown for small screens
+                .dropdown.d-md-none
+                    button.btn.btn-sm.btn-outline-secondary.dropdown-toggle(
+                        type="button" 
+                        id="filterDropdown" 
+                        data-bs-toggle="dropdown" 
+                        aria-expanded="false"
+                    ) Lọc
+                    ul.dropdown-menu(
+                        aria-labelledby="filterDropdown"
+                    )
+                        each item in filterStatus
+                            li
+                                a.dropdown-item(
+                                    href="#" 
+                                    data-status=item.status
+                                )= item.name
+                        
     table.table.table-hover.table-sm
         thead
             tr
