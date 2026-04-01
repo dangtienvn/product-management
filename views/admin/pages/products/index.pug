@@ -1,5 +1,6 @@
 extends ../../layouts/default.pug
 include ../../mixins/filter-status.pug
+include ../../mixins/search.pug
 
 block main
     h1 Danh sách sản phẩm
@@ -8,13 +9,7 @@ block main
         .card-body
             .d-flex.flex-wrap.align-items-center.gap-2
                 .input-group.input-group-sm.flex-grow-1.me-2
-                    input.form-control(
-                        type="text" 
-                        placeholder="Tìm kiếm..." search-input
-                    )
-                    button#search-button.btn.btn-sm.btn-outline-primary(
-                        type="button"
-                    ) Tìm kiếm
+                    +search()
 
                 // Buttons for medium+ screens (wrap automatically when too many)
                 .d-none.d-md-flex.flex-wrap.gap-2(
@@ -51,24 +46,49 @@ block main
                 th Trạng thái
                 th Hành động
         tbody
-        each item, index in products
-            tr
-                td=index + 1
-                td
-                    img(
-                        src=item.thumbnail
-                        alt=item.title
-                        width="100px"
-                        height="auto"
-                    )
+            each item, index in products
+                tr
+                    td= index + 1
+                    td
+                        if item && item.thumbnail
+                            img(src=item.thumbnail alt=item.title width="100px" height="auto")
+                        else
+                            | -
+                    td= item && item.title
+                    td= item && item.price
+                    td
+                        if (item && item.status === "active")
+                            span(class="badge bg-success") Còn hàng
+                        else
+                            span(class="badge bg-danger") Dừng kinh doanh
+                    td(class="d-flex gap-2")
+                        button(type="button" class="btn btn-warning btn-sm") Sửa
+                        button(type="button" class="btn btn-danger btn-sm") Xóa
 
-                td=item.title
-                td=item.price
-                td
-                    if (item.status === "active")
-                        span(class="badge bg-success") Còn hàng
-                    else
-                        span(class="badge bg-danger") Dừng kinh doanh
-                td(class="d-flex gap-2") 
-                    button(type="button" class="btn btn-warning btn-sm") Sửa
-                    button(type="button" class="btn btn-danger btn-sm") Xóa
+    //- Pagination
+    if (typeof pagination !== 'undefined' && pagination && pagination.totalPage)
+        - const prefix = (typeof baseQuery !== 'undefined' && baseQuery) ? baseQuery + '&' : '';
+        nav
+            ul(class="pagination")
+                // First
+                li(class=`page-item ${pagination.currentPage === pagination.firstPage ? 'disabled' : ''}`)
+                    a(class="page-link" href=`?${prefix}page=${pagination.firstPage}`) Trang đầu
+
+                // Prev
+                li(class=`page-item ${!pagination.hasPrev ? 'disabled' : ''}`)
+                    a(class="page-link" href=`?${prefix}page=${pagination.hasPrev ? pagination.prevPage : pagination.currentPage}`) Trang trước
+
+                // Page numbers (window)
+                - for (var i = 0; i < pagination.pages.length; i++)
+                    - const p = pagination.pages[i];
+                    li(class=`page-item ${pagination.currentPage === p ? 'active' : ''}`)
+                        a(class="page-link" href=`?${prefix}page=${p}`)= p
+
+                // Next
+                li(class=`page-item ${!pagination.hasNext ? 'disabled' : ''}`)
+                    a(class="page-link" href=`?${prefix}page=${pagination.hasNext ? pagination.nextPage : pagination.currentPage}`) Kế tiếp
+
+                // Last
+                li(class=`page-item ${pagination.currentPage === pagination.lastPage ? 'disabled' : ''}`)
+                    a(class="page-link" href=`?${prefix}page=${pagination.lastPage}`) Trang cuối
+    //- End of pagination

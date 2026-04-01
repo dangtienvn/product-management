@@ -4,6 +4,7 @@ const searchButton = document.getElementById("search-button");
 
 let url = new URL(window.location.href);
 
+// Set active button based on URL parameter
 function setActiveButtonFromParam() {
     const statusParam = url.searchParams.get("status");
     buttonsStatus.forEach(btn => {
@@ -18,6 +19,7 @@ function setActiveButtonFromParam() {
     });
 }
 
+// Event listeners for status filter buttons
 if (buttonsStatus.length > 0) {
     setActiveButtonFromParam();
     buttonsStatus.forEach(button => {
@@ -37,6 +39,7 @@ if (buttonsStatus.length > 0) {
     });
 }
 
+// Search functionality
 if (searchInput) {
     // prefill input from URL
     searchInput.value = url.searchParams.get("q") || "";
@@ -60,3 +63,18 @@ if (searchInput) {
         searchButton.addEventListener("click", doSearch);
     }
 }
+
+
+// Pagination
+const paginationButtons = document.querySelectorAll("[button-pagination]");
+paginationButtons.forEach(button => {
+    button.addEventListener("click", () => {
+        const page = button.getAttribute("button-pagination");
+        
+        if (page) {
+            url.searchParams.set("page", page);
+            window.location.href = url.href;
+        }
+    });
+});
+

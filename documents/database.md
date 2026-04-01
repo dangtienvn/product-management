@@ -7,7 +7,6 @@
 
 ##  Product
 - id
-- 
-- 
+
 # Relationship
 
