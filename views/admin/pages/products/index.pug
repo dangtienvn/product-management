@@ -1,5 +1,6 @@
 extends ../../layouts/default.pug
 include ../../mixins/filter-status.pug
+include ../../mixins/search.pug
 
 block main
     h1 Danh sách sản phẩm
@@ -8,13 +9,7 @@ block main
         .card-body
             .d-flex.flex-wrap.align-items-center.gap-2
                 .input-group.input-group-sm.flex-grow-1.me-2
-                    input.form-control(
-                        type="text" 
-                        placeholder="Tìm kiếm..." search-input
-                    )
-                    button#search-button.btn.btn-sm.btn-outline-primary(
-                        type="button"
-                    ) Tìm kiếm
+                    +search()
 
                 // Buttons for medium+ screens (wrap automatically when too many)
                 .d-none.d-md-flex.flex-wrap.gap-2(

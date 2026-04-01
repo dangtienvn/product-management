@@ -120,6 +120,9 @@ product-management/
 │      ├── dashboard.controller.js
 │      └── product.controller.js
 │  
+│── helpers/
+│      └── filterStatus.js
+│ 
 │── models/
 │   └── product.model.js
 │  
@@ -152,16 +155,41 @@ product-management/
 │  
 │── views/
 │   ├── admin/
-│   │    ├── dashboard.route.js
-│   │    ├── index.route.js
-│   │    └── product.route.js
+│   │    ├── layouts/
+│   │    │    └── default.pug
+│   │    │      
+│   │    ├── mixins/
+│   │    │    └── filter-status.pug
+│   │    │      
+│   │    ├── pages/    
+│   │    │     ├── dashboard/ 
+│   │    │     │    └── index.pug
+│   │    │     │                  
+│   │    │     └── products/
+│   │    │            └── index.pug
+│   │    └── partials/
+│   │         ├── header.pug
+│   │         └── sider.pug
 │   │        
 │   └── client/
-│      ├── home.route.js
-│      ├── index.route.js
-│      └── product.route.js
+│       ├── layouts/
+│       │    └── default.pug
+│       │      
+│       ├── mixins/
+│       │    └── box-head.pug
+│       │      
+│       ├── pages/    
+│       │     ├── home/ 
+│       │     │    └── index.pug
+│       │     │                  
+│       │     └── products/
+│       │            └── index.pug
+│       └── partials/
+│            ├── footer.pug
+│            └── header.pug
 │  
 │── .env
+│── .env,example
 │── .gitignore
 │── index.js
 │── outlog.com
@@ -194,7 +222,6 @@ product-management/
 
 * Centralized API service (Axios / Fetch)
 * Interceptors for:
-
   * Attach token
   * Handle errors globally
 * Clean separation between API and UI
@@ -202,6 +229,7 @@ product-management/
 ---
 
 ## 🌍 Environment Configuration
+
 `.env` file:
 PORT=3000
 
@@ -228,7 +256,6 @@ Describe how frontend communicates with backend:
 * Data flow
 
 ---
-
 
 ## 🚀 Future Improvements
 
