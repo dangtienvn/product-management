@@ -1,6 +1,7 @@
 extends ../../layouts/default.pug
 include ../../mixins/filter-status.pug
 include ../../mixins/search.pug
+include ../../mixins/pagination.pug
 
 block main
     h1 Danh sách sản phẩm
@@ -65,30 +66,5 @@ block main
                         button(type="button" class="btn btn-warning btn-sm") Sửa
                         button(type="button" class="btn btn-danger btn-sm") Xóa
 
-    //- Pagination
-    if (typeof pagination !== 'undefined' && pagination && pagination.totalPage)
-        - const prefix = (typeof baseQuery !== 'undefined' && baseQuery) ? baseQuery + '&' : '';
-        nav
-            ul(class="pagination")
-                // First
-                li(class=`page-item ${pagination.currentPage === pagination.firstPage ? 'disabled' : ''}`)
-                    a(class="page-link" href=`?${prefix}page=${pagination.firstPage}`) Trang đầu
-
-                // Prev
-                li(class=`page-item ${!pagination.hasPrev ? 'disabled' : ''}`)
-                    a(class="page-link" href=`?${prefix}page=${pagination.hasPrev ? pagination.prevPage : pagination.currentPage}`) Trang trước
-
-                // Page numbers (window)
-                - for (var i = 0; i < pagination.pages.length; i++)
-                    - const p = pagination.pages[i];
-                    li(class=`page-item ${pagination.currentPage === p ? 'active' : ''}`)
-                        a(class="page-link" href=`?${prefix}page=${p}`)= p
-
-                // Next
-                li(class=`page-item ${!pagination.hasNext ? 'disabled' : ''}`)
-                    a(class="page-link" href=`?${prefix}page=${pagination.hasNext ? pagination.nextPage : pagination.currentPage}`) Kế tiếp
-
-                // Last
-                li(class=`page-item ${pagination.currentPage === pagination.lastPage ? 'disabled' : ''}`)
-                    a(class="page-link" href=`?${prefix}page=${pagination.lastPage}`) Trang cuối
-    //- End of pagination
+    //- Pagination (mixin)
+    +pagination(pagination, baseQuery)
