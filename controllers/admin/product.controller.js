@@ -1,4 +1,5 @@
 const Product = require("../../models/product.model");
+const mongoose = require("mongoose");
 const filterStatusHelper = require("../../helpers/filterStatus");
 const searchHelper = require("../../helpers/search");
 const paginationHelper = require("../../helpers/pagination");
@@ -38,4 +39,33 @@ module.exports.index = async (req, res) => {
         pagination: objectPagination,
         baseQuery: objectPagination.baseQuery
     });
+}
+
+// [GET] /admin/products/change-status/inactive/:status/id
+module.exports.changeStatus = async (req, res) => {
+    const status = req.params.status;
+    const id = req.params.id;
+
+    if (!id) {
+        console.error("changeStatus: missing id param");
+        return res.redirect(req.baseUrl || "/admin/products");
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        console.error("changeStatus: invalid ObjectId", id);
+        return res.redirect("back");
+    }
+
+    if (!status || (status !== "active" && status !== "inactive")) {
+        console.error("changeStatus: invalid status param", status);
+        return res.redirect(req.baseUrl || "/admin/products");
+    }
+
+    try {
+        await Product.updateOne({ _id: id }, { status: status });
+    } catch (err) {
+        console.error("changeStatus error:", err);
+    }
+
+    return res.redirect(req.baseUrl || "/admin/products");
 }

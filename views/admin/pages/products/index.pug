@@ -16,7 +16,7 @@ block main
                 .d-none.d-md-flex.flex-wrap.gap-2(
                     role="group" 
                     aria-label="Filter buttons"
-                )
+                ) 
                     +filter-status(filterStatus)
 
                 // Dropdown for small screens
@@ -59,12 +59,32 @@ block main
                     td= item && item.price
                     td
                         if (item && item.status === "active")
-                            span(class="badge bg-success") Còn hàng
+                            span(
+                                role="button"
+                                data-status=item.status
+                                data-id=item._id
+                                button-change-status
+                                class="badge bg-success"
+                            ) Còn hàng
                         else
-                            span(class="badge bg-danger") Dừng kinh doanh
+                            span(
+                                role="button"
+                                data-status=item.status
+                                data-id=item._id
+                                button-change-status
+                                class="badge bg-danger"
+                            ) Dừng kinh doanh
                     td(class="d-flex gap-2")
                         button(type="button" class="btn btn-warning btn-sm") Sửa
                         button(type="button" class="btn btn-danger btn-sm") Xóa
 
     //- Pagination (mixin)
     +pagination(pagination, baseQuery)
+
+    form(
+        action=""
+        method="POST"
+        id="form-change-status"
+        data-path=`${prefixAdmin}/products/change-status/`
+    )
+    script(src="/admin/js/product.js")
