@@ -14,8 +14,17 @@ if (buttonChangeStatus.length > 0) {
             // console.log(id);
             // console.log(statusChange);
             
-            const action = path + `${statusChange}/${id}?_method=PATCH`;
+            const action = path + `${statusChange}/${id}`;
             formChangeStatus.action = action;
+            // ensure hidden _method exists (method-override)
+            let methodInput = formChangeStatus.querySelector("input[name='_method']");
+            if (!methodInput) {
+                methodInput = document.createElement('input');
+                methodInput.type = 'hidden';
+                methodInput.name = '_method';
+                formChangeStatus.appendChild(methodInput);
+            }
+            methodInput.value = 'PATCH';
             formChangeStatus.submit();  
             console.log(action);                     
         });

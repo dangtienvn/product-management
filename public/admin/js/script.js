@@ -64,7 +64,6 @@ if (searchInput) {
     }
 }
 
-
 // Pagination
 const paginationButtons = document.querySelectorAll("[button-pagination]");
 paginationButtons.forEach(button => {
@@ -78,5 +77,76 @@ paginationButtons.forEach(button => {
     });
 });
 
+// Checkbox-multi
+const checkboxMulti = document.querySelector("[checkbox-multi]");
+if (checkboxMulti) {
+    // check-all is an element with id "check-all"
+    const inputCheckAll = checkboxMulti.querySelector("#check-all");
+    const inputsId = checkboxMulti.querySelectorAll("input[name='id']");
+
+    if (inputCheckAll) {
+        inputCheckAll.addEventListener("click", () => {
+            inputsId.forEach(input => input.checked = inputCheckAll.checked);
+        });
+    }
+
+    // When submitting the multi-change form, gather selected ids into the `ids` input
+    const formChangeMulti = document.getElementById("form-change-multi");
+    if (formChangeMulti) {
+        formChangeMulti.addEventListener("submit", (e) => {
+            const checked = Array.from(inputsId).filter(i => i.checked).map(i => i.value);
+            const idsInput = formChangeMulti.querySelector("input[name='ids']");
+            if (checked.length === 0) {
+                e.preventDefault();
+                alert("Vui lòng chọn ít nhất một mục.");
+                return;
+            }
+            if (idsInput) {
+                idsInput.value = checked.join(",");
+            }
+        });
+    }
+    // Update 'check-all' when individual checkboxes change, and set initial state
+    if (inputsId.length > 0) {
+        const updateCheckAllState = () => {
+            const allChecked = Array.from(inputsId).every(i => i.checked);
+            if (inputCheckAll) inputCheckAll.checked = allChecked;
+        };
+
+        // initial state
+        updateCheckAllState();
+
+        inputsId.forEach((input) => {
+            input.addEventListener("change", updateCheckAllState);
+        });
+    }
+}
+
+// Form change multi
+const formChangeMulti = document.querySelector("[form-change-multi]");
+if (formChangeMulti) {
+    formChangeMulti.addEventListener("submit", (e) => {
+
+        e.preventDefault();
+        const checkboxMulti = document.querySelector("[checkbox-multi]");
+        const inputsChecked = checkboxMulti.querySelectorAll(
+            "input[name='id']:checked"
+        );
+
+        if (inputsChecked.length > 0) {
+            let ids = [];
+            inputsChecked.forEach((input) => {
+                const id = input.value;
+                ids.push(ids);
+            });
+
+            console.log(ids.join(","));
+            inputIds.value = ids.join(",");
+            formChangeMulti.submit(); 
+        } else {
+            alert("Vui lòng chọn ít nhất một mục.");
+        }
+    });
+}
 
 

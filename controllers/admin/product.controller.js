@@ -41,7 +41,7 @@ module.exports.index = async (req, res) => {
     });
 }
 
-// [GET] /admin/products/change-status/inactive/:status/id
+// [PATCH] /admin/products/change-status/inactive/:status/id
 module.exports.changeStatus = async (req, res) => {
     const status = req.params.status;
     const id = req.params.id;
@@ -69,3 +69,32 @@ module.exports.changeStatus = async (req, res) => {
 
     return res.redirect(req.baseUrl || "/admin/products");
 }
+
+// [PATCH] /admin/products/change-multi
+module.exports.changeMulti = async (req, res) => {
+    const idsRaw = req.body.ids || "";
+    const type = req.body.type;
+
+    // parse ids (comma-separated) into array of valid ObjectIds
+    const idsArr = idsRaw
+        .split(',')
+        .map(s => s.trim())
+        .filter(s => s.length > 0 && mongoose.Types.ObjectId.isValid(s));
+
+    if (idsArr.length === 0) {
+        console.error("changeMulti: no valid ids provided", idsRaw);
+        return res.redirect(req.baseUrl || "/admin/products");
+    }
+
+    try {
+        if (type === "active") {
+            await Product.updateMany({ _id: { $in: idsArr } }, { status: "active" });
+        } else if (type === "inactive") {
+            await Product.updateMany({ _id: { $in: idsArr } }, { status: "inactive" });
+        }
+    } catch (err) {
+        console.error("changeMulti error:", err);
+    }
+
+    return res.redirect(req.baseUrl || "/admin/products");
+};
