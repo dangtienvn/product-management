@@ -2,6 +2,7 @@ extends ../../layouts/default.pug
 include ../../mixins/filter-status.pug
 include ../../mixins/search.pug
 include ../../mixins/pagination.pug
+include ../../mixins/form-change-multi.pug
 
 block main
     h1 Danh sách sản phẩm
@@ -36,55 +37,74 @@ block main
                                     href="#" 
                                     data-status=item.status
                                 )= item.name
-                        
-    table.table.table-hover.table-sm
-        thead
-            tr
-                th STT
-                th Hình ảnh
-                th Tiêu đề
-                th Giá
-                th Trạng thái
-                th Hành động
-        tbody
-            each item, index in products
-                tr
-                    td= index + 1
-                    td
-                        if item && item.thumbnail
-                            img(src=item.thumbnail alt=item.title width="100px" height="auto")
-                        else
-                            | -
-                    td= item && item.title
-                    td= item && item.price
-                    td
-                        if (item && item.status === "active")
-                            span(
-                                role="button"
-                                data-status=item.status
-                                data-id=item._id
-                                button-change-status
-                                class="badge bg-success"
-                            ) Còn hàng
-                        else
-                            span(
-                                role="button"
-                                data-status=item.status
-                                data-id=item._id
-                                button-change-status
-                                class="badge bg-danger"
-                            ) Dừng kinh doanh
-                    td(class="d-flex gap-2")
-                        button(type="button" class="btn btn-warning btn-sm") Sửa
-                        button(type="button" class="btn btn-danger btn-sm") Xóa
 
-    //- Pagination (mixin)
-    +pagination(pagination, baseQuery)
+    .card.mb-3
+        .card-header Danh sách
+        .card-body
 
-    form(
-        action=""
-        method="POST"
-        id="form-change-status"
-        data-path=`${prefixAdmin}/products/change-status/`
-    )
-    script(src="/admin/js/product.js")
+            +formChangeMulti(`${prefixAdmin}/products/change-multi`)
+            table(
+                class="table table-hover table-sm table-bordered"
+                    checkbox-multi
+            )
+                thead
+                    tr
+                        th
+                            input(type="checkbox" id="check-all")
+                        th STT
+                        th Hình ảnh
+                        th Tiêu đề
+                        th Giá
+                        th Trạng thái
+                        th Hành động
+                tbody
+                    each item, index in products
+                        tr
+                            td
+                                input(
+                                    type="checkbox" 
+                                    name="id" 
+                                    value=item.id
+                                )
+                            td= index + 1
+                            td
+                                if item && item.thumbnail
+                                    img(src=item.thumbnail alt=item.title width="100px" height="auto")
+                                else
+                                    | -
+                            td= item && item.title
+                            td= item && item.price
+                            td
+                                if (item && item.status === "active")
+                                    span(
+                                        role="button"
+                                        data-status=item.status
+                                        data-id=item._id
+                                        button-change-status
+                                        class="badge bg-success"
+                                    ) Còn hàng
+                                else
+                                    span(
+                                        role="button"
+                                        data-status=item.status
+                                        data-id=item._id
+                                        button-change-status
+                                        class="badge bg-danger"
+                                    ) Dừng kinh doanh
+                            td(class="d-flex gap-2")
+                                button(type="button" class="btn btn-warning btn-sm") Sửa
+                                button(type="button" class="btn btn-danger btn-sm") Xóa
+
+            //- Pagination (mixin)
+            +pagination(pagination, baseQuery)
+
+            form(
+                action=""
+                method="POST"
+                id="form-change-status"
+                data-path=`${prefixAdmin}/products/change-status/`
+            )
+                // include override field so server can treat POST as PATCH
+                input(type="hidden" name="_method" value="PATCH")
+            script(src="/admin/js/product.js")
+            script(src="/admin/js/script.js")
